@@ -1,8 +1,10 @@
+// import prettier from "eslint-config-prettier"
+
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    'eslint:recommended',
+    // 'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:react-hooks/recommended',
@@ -17,4 +19,6 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  // prettier
+
 }
