@@ -24,7 +24,7 @@ function UpdateSettingsForm() {
     return <Spinner />;
   }
 
-  function handleUpdate(e,field) {
+  function handleUpdate(e, field) {
     const { value } = e.target;
     if (!value) {
       return;
