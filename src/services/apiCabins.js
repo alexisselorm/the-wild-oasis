@@ -40,13 +40,12 @@ export async function createCabin(newCabin, id) {
   }
 
   // Return early if we have image
-  if (hasImagePath) return data
+  if (hasImagePath) return data;
 
   // Upload image
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image);
-
 
   if (storageError) {
     console.log(storageError);

@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow";
 import { useCreateCabin } from "./useCreateCabin";
 
-function CreateCabinForm({ cabinToEdit={} }) {
+function CreateCabinForm({ cabinToEdit = {} }) {
   console.log(cabinToEdit);
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
@@ -30,14 +30,17 @@ function CreateCabinForm({ cabinToEdit={} }) {
     if (isEditSession) {
       editCabin({ newCabinData: { ...data, image }, id: editId });
     } else {
-      createCabin({ ...data, image: data.image[0] },{
-        onSuccess:()=>reset()
-      });
+      createCabin(
+        { ...data, image: data.image[0] },
+        {
+          onSuccess: () => reset(),
+        },
+      );
     }
   };
 
   const queryClient = useQueryClient();
-  const {createCabin,isCreating}=useCreateCabin()
+  const { createCabin, isCreating } = useCreateCabin();
 
   const { mutate: editCabin, isPending: isEditing } = useMutation({
     mutationFn: ({ newCabinData, id }) => createCabin(newCabinData, id),

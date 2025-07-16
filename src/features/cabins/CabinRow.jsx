@@ -47,18 +47,22 @@ const Discount = styled.div`
 
 const CabinRow = ({ cabin }) => {
   const [showForm, setShowForm] = useState(false);
-  const { id, name, maxCapacity, regularPrice, discount, image,description } = cabin;
+  const { id, name, maxCapacity, regularPrice, discount, image, description } =
+    cabin;
 
-  const {isDeleting,mutate} = useDeleteCabin()
-  const {isCreating,createCabin} = useCreateCabin()
+  const { isDeleting, mutate } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
 
-  const handleDuplicate=()=>{
+  const handleDuplicate = () => {
     createCabin({
-      name:`Copy of ${name}`,
-      maxCapacity,regularPrice,discount,image,description
-
-    })
-  }
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  };
 
   return (
     <>
@@ -67,12 +71,20 @@ const CabinRow = ({ cabin }) => {
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} people</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (<Discount>{formatCurrency(discount)}</Discount>): <span>&mdash;</span>}
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <div>
-          <button disabled={isCreating} onClick={handleDuplicate} ><HiSquare2Stack/></button>
-          <button onClick={() => setShowForm((show) => !show)}><HiPencil/></button>
+          <button disabled={isCreating} onClick={handleDuplicate}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowForm((show) => !show)}>
+            <HiPencil />
+          </button>
           <button onClick={() => mutate(id)} disabled={isDeleting}>
-            <HiTrash/>
+            <HiTrash />
           </button>
         </div>
       </TableRow>
