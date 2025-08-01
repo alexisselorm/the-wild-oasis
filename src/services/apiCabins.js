@@ -25,10 +25,14 @@ export async function createCabin(newCabin, id) {
   let query = supabase.from("cabins");
 
   // Create
-  if (!id) {
+  if (id === undefined || id === null) {
+    console.log("Create: ", id);
+    console.log(`Does id exist? ${id} --- ${!!id}`);
+    console.log(`object: ${JSON.stringify(newCabin)}`);
+
     query = query.insert([{ ...newCabin, image: imagePath }]);
-  }
-  if (id) {
+  } else {
+    console.log("Update: ", id);
     query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
   }
 
