@@ -85,9 +85,9 @@ const Row = ({ children }) => {
     </StyledRow>
   );
 };
-const Body = ({ data,render }) => {
-  if (!data.length) <Empty>No data to show now</Empty>
-  return <StyledBody>{data.map(render)}</StyledBody>
+const Body = ({ data, render }) => {
+  if (!data.length) <Empty>No data to show now</Empty>;
+  return <StyledBody>{data.map(render)}</StyledBody>;
 };
 
 Table.Header = Header;
