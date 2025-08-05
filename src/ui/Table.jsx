@@ -86,7 +86,7 @@ const Row = ({ children }) => {
   );
 };
 const Body = ({ data, render }) => {
-  if (!data.length) <Empty>No data to show now</Empty>;
+  if (!data?.length) <Empty>No data to show now</Empty>;
   return <StyledBody>{data.map(render)}</StyledBody>;
 };
 
