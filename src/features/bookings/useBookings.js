@@ -22,6 +22,16 @@ export function useBookings() {
   // PAGINATION
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
+
+  const {
+    isLoading,
+    data: { data: bookings, count } = {},
+    error,
+  } = useQuery({
+    queryKey: ["bookings", filter, sortBy, page],
+    queryFn: () => getBookings({ filter, sortBy, page }),
+  });
+
   // PRE-FETCHING
   const pageCount = Math.ceil(count / PAGE_SIZE);
   if (page < pageCount) {
@@ -37,14 +47,7 @@ export function useBookings() {
     });
   }
 
-  const {
-    isLoading,
-    data: { data: bookings, count } = {},
-    error,
-  } = useQuery({
-    queryKey: ["bookings", filter, sortBy, page],
-    queryFn: () => getBookings({ filter, sortBy, page }),
-  });
+
 
   return { isLoading, error, bookings, count };
 }
