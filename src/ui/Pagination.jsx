@@ -59,8 +59,6 @@ const PaginationButton = styled.button`
   }
 `;
 
-
-
 const Pagination = ({ count }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 

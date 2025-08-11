@@ -7,7 +7,7 @@ export async function getBookings({ filter, sortBy, page }) {
     .from("bookings")
     .select(
       "id,created_at,startDate,endDate,numNights,numGuests,status,totalPrice, cabins(name),guests(fullName,email)",
-      { count: "exact" }
+      { count: "exact" },
     );
 
   if (filter) {
@@ -23,7 +23,7 @@ export async function getBookings({ filter, sortBy, page }) {
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
-    query = query.range(from, to)
+    query = query.range(from, to);
   }
 
   const { data, error, count } = await query;
