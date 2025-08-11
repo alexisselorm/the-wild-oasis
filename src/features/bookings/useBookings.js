@@ -22,7 +22,6 @@ export function useBookings() {
   // PAGINATION
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
-
   const {
     isLoading,
     data: { data: bookings, count } = {},
@@ -46,8 +45,6 @@ export function useBookings() {
       queryFn: () => getBookings({ filter, sortBy, page: page - 1 }),
     });
   }
-
-
 
   return { isLoading, error, bookings, count };
 }
