@@ -12,7 +12,7 @@ import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner";
 import { useNavigate } from "react-router-dom";
-import { HiArrowDownOnSquare, HiArrowUpOnSquare } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiSpeakerXMark } from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
 
 const HeadingGroup = styled.div`
@@ -22,7 +22,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { booking = {}, isLoading } = useBooking();
+  const { booking = {}, isLoading,deleteBooking,isDeletingBooking } = useBooking();
 
   const { status, id: bookingId } = booking;
   const moveBack = useMoveBack();
@@ -67,6 +67,15 @@ function BookingDetail() {
             disabled={isCheckingOut}
           >
             Check Out
+          </Button>
+        )}
+        {(
+          <Button
+            icon={<HiSpeakerXMark />}
+            onClick={() => deleteBooking(bookingId)}
+            disabled={isDeletingBooking}
+          >
+            Delete Booking
           </Button>
         )}
 

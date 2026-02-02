@@ -3,13 +3,16 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import Modal from "../../ui/Modal";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
 import Menus from "../../ui/Menus";
-import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye, HiTrash } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../check-in-out/useCheckout";
+import { useBooking } from "./useBooking";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -60,9 +63,11 @@ function BookingRow({
 
   const navigate = useNavigate();
   const {checkout, isCheckingOut} = useCheckout();
+  const {deleteBooking,isDeletingBooking} = useBooking();
 
   return (
     <Table.Row>
+      <Modal>
       <Cabin>{cabinName}</Cabin>
 
       <Stacked>
@@ -114,8 +119,24 @@ function BookingRow({
               Check Out
             </Menus.Button>
           )}
+
+          <Modal.Open opensWindowName='delete'>
+          <Menus.Button
+            icon={<HiTrash />}
+          >
+            Delete Booking
+          </Menus.Button>
+          </Modal.Open>
+          
         </Menus.List>
       </Menus.Menu>
+
+      <Modal.Window name='delete'>
+        <ConfirmDelete resourceName='booking'
+        onConfirm={() => { deleteBooking(bookingId) }}
+        disabled={isDeletingBooking} />
+      </Modal.Window>
+      </Modal>
     </Table.Row>
   );
 }
