@@ -1,9 +1,11 @@
+import Logout from "../features/authentication/Logout";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 
 function Dashboard() {
   return (
     <Row type="horizontal">
+      <Logout/>
       <Heading as="h1">Dashboard</Heading>
       <p>TEST</p>
     </Row>
