@@ -29,8 +29,8 @@ function CheckinBooking() {
   const [addBreakfast, setAddBreakfast] = useState(false);
   const moveBack = useMoveBack();
   const { booking = {}, isLoading } = useBooking();
-  const {checkin,isCheckingIn} = useCheckin();
-  const {settings, isLoading: isLoadingSettings} = useSettings()
+  const { checkin, isCheckingIn } = useCheckin();
+  const { settings, isLoading: isLoadingSettings } = useSettings();
 
   useEffect(() => {
     setConfirmPaid(booking?.isPaid ?? false);
@@ -49,25 +49,26 @@ function CheckinBooking() {
     return <Spinner />;
   }
 
-  
   function handleCheckin() {
     if (!confirmPaid) {
-      return
+      return;
     }
-    if(addBreakfast){
-      checkin({bookingId, breakfast:{
-        hasBreakfast: true,
-        extrasPrice:optionalBreakfastPrice,
-        totalPrice: totalPrice + optionalBreakfastPrice
-      }})
-    }else{
-
-      checkin({bookingId,breakfast:{}})
+    if (addBreakfast) {
+      checkin({
+        bookingId,
+        breakfast: {
+          hasBreakfast: true,
+          extrasPrice: optionalBreakfastPrice,
+          totalPrice: totalPrice + optionalBreakfastPrice,
+        },
+      });
+    } else {
+      checkin({ bookingId, breakfast: {} });
     }
-
   }
-  
-  const optionalBreakfastPrice = settings.breakfastPrice * numGuests * numNights;
+
+  const optionalBreakfastPrice =
+    settings.breakfastPrice * numGuests * numNights;
   return (
     <>
       <Row type="horizontal">
@@ -83,22 +84,27 @@ function CheckinBooking() {
           onChange={() => setConfirmPaid((confirm) => !confirm)}
           id="confirm"
         >
-          I confirm that {guests.fullName} has paid the total amount of {!addBreakfast ? formatCurrency(totalPrice) : `${formatCurrency(totalPrice + optionalBreakfastPrice)} (${formatCurrency(optionalBreakfastPrice)} + ${formatCurrency(totalPrice)})`}
+          I confirm that {guests.fullName} has paid the total amount of{" "}
+          {!addBreakfast
+            ? formatCurrency(totalPrice)
+            : `${formatCurrency(totalPrice + optionalBreakfastPrice)} (${formatCurrency(optionalBreakfastPrice)} + ${formatCurrency(totalPrice)})`}
         </Checkbox>
       </Box>
 
-       {!hasBreakfast && (<Box>
-        <Checkbox
-          checked={addBreakfast}
-          onChange={() => {
-            setAddBreakfast((add) => !add);
-            setConfirmPaid(false)
-          }}
-          id="breakfast"
-        >
-          Wants to add breakfast for {formatCurrency(optionalBreakfastPrice)}
-        </Checkbox>
-      </Box>)}
+      {!hasBreakfast && (
+        <Box>
+          <Checkbox
+            checked={addBreakfast}
+            onChange={() => {
+              setAddBreakfast((add) => !add);
+              setConfirmPaid(false);
+            }}
+            id="breakfast"
+          >
+            Wants to add breakfast for {formatCurrency(optionalBreakfastPrice)}
+          </Checkbox>
+        </Box>
+      )}
 
       <ButtonGroup>
         <Button disabled={!confirmPaid || isCheckingIn} onClick={handleCheckin}>
